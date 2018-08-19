@@ -5,8 +5,8 @@ from pathlib import Path
 import numpy as np
 
 flowers_path = Path('flowers/')
-valid_path = Path('./data/valid')
-train_path = Path('./data/train')
+valid_path = Path('data/valid')
+train_path = Path('data/train')
 
 flower_types = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
 val_size = 50
