@@ -6,12 +6,17 @@ class MultipleClassRegression:
 		self.lr = lr
 		self._lambda = _lambda
 	
+	def __preprocess_input(self, X):
+		intercept = np.ones((X.shape[0], 1))
+		return np.concatenate((intercept, X), axis=1)
+	
 	def __convert_labels(self, y):
 		self.label_map, encoded_labels = np.unique(y, return_inverse=True)
 		self.num_of_classes = len(self.label_map)
 		return encoded_labels
 	
 	def bind(self, X, y):
+		X = self.__preprocess_input(X)
 		y = self.__convert_labels(y)
 		self.classifiers = []
 		
@@ -27,5 +32,6 @@ class MultipleClassRegression:
 		return np.vstack([classifier.predict_prob(data) for classifier in self.classifiers])
 	
 	def predict(self, data):
+		data = self.__preprocess_input(data)
 		probs = self.__predict_prob(data)
 		return np.apply_along_axis(lambda column: self.label_map[np.argmax(column)], 0, probs)
