@@ -58,6 +58,5 @@ model.fit_generator(
 	validation_steps = 250 // batch_size,
 	callbacks = callbacks_list)
 
-fin = open('log.txt', 'a')
-print(history, file=fin)
-fin.close()
+with open('log.txt', 'a') as flog:
+        flog.write(history)
